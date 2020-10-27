@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import './_Inventory.scss';
 
 import * as ReactRedux from 'react-redux';
@@ -99,28 +100,28 @@ const Inventory = ({ tableProps, onSelectRows, rows, intl, rule, addNotification
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [rows]);
 
-    useEffect(() => {
-        (async () => {
-            const { inventoryConnector, mergeWithEntities, INVENTORY_ACTION_TYPES } = await insights.loadInventory({
-                ReactRedux, react: React, reactRouterDom, pfReactTable, pfReact: reactCore
-            });
-
-            getRegistry().register({
-                ...mergeWithEntities(
-                    systemReducer(
-                        [
-                            { title: intl.formatMessage(messages.name), transforms: [pfReactTable.sortable], key: 'display_name' },
-                            { title: intl.formatMessage(messages.lastSeen), transforms: [pfReactTable.sortable], key: 'updated' }
-                        ],
-                        INVENTORY_ACTION_TYPES
-                    )
-                )
-            });
-
-            const { InventoryTable } = inventoryConnector(store);
-            setInventoryTable(() => InventoryTable);
-        })();
-    }, [intl, store]);
+    // useEffect(() => {
+    // (async () => {
+    // const { inventoryConnector, mergeWithEntities, INVENTORY_ACTION_TYPES } = await insights.loadInventory({
+    // ReactRedux, react: React, reactRouterDom, pfReactTable, pfReact: reactCore
+    // });
+    //
+    // getRegistry().register({
+    // ...mergeWithEntities(
+    // systemReducer(
+    // [
+    // { title: intl.formatMessage(messages.name), transforms: [pfReactTable.sortable], key: 'display_name' },
+    // { title: intl.formatMessage(messages.lastSeen), transforms: [pfReactTable.sortable], key: 'updated' }
+    // ],
+    // INVENTORY_ACTION_TYPES
+    // )
+    // )
+    // });
+    //
+    // const { InventoryTable } = inventoryConnector(store);
+    // setInventoryTable(() => InventoryTable);
+    // })();
+    // }, [intl, store]);
 
     return <React.Fragment>
         {disableRuleModalOpen && <DisableRule

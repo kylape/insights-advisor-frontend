@@ -31,7 +31,7 @@ const paths = [
 ];
 
 const InsightsRoute = ({ component: Component, rootClass, ...rest }) => {
-    const root = document.getElementById('root');
+    const root = document.getElementById('advisor-root');
     root.removeAttribute('class');
     root.classList.add(`page__${rootClass}`, 'pf-c-page__main');
     root.setAttribute('role', 'main');

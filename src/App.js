@@ -34,15 +34,13 @@ const App = (props) => {
         }
 
         const baseComponentUrl = props.location.pathname.split('/')[1];
-        const unregister = insights.chrome.on('APP_NAVIGATION', event => {
+        insights.chrome.on('APP_NAVIGATION', event => {
             if (event.domEvent) {
                 props.history.push(`/${event.navId}`);
                 appNavClick[baseComponentUrl] !== undefined ? appNavClick[baseComponentUrl](true)
                     : appNavClick.recommendations;
             }
         });
-
-        return () => unregister();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import '@redhat-cloud-services/frontend-components-inventory-insights/index.css';
 
 import * as pfReactTable from '@patternfly/react-table';
@@ -25,21 +26,21 @@ const InventoryDetails = ({ entity, match }) => {
     const store = useStore();
 
     const fetchInventoryDetails = async () => {
-        const { inventoryConnector, mergeWithDetail, INVENTORY_ACTION_TYPES } = await insights.loadInventory({
-            ReactRedux,
-            react: React,
-            reactRouterDom,
-            pfReactTable,
-            pfReact: reactCore
-        });
-        const { InventoryDetailHead, AppInfo, DetailWrapper } = inventoryConnector(store);
-
-        getRegistry().register({
-            ...mergeWithDetail(entitiesDetailsReducer(INVENTORY_ACTION_TYPES))
-        });
-        setInventoryDetail(() => InventoryDetailHead);
-        setAppInfo(() => AppInfo);
-        setInvWrapper(() => DetailWrapper);
+        // const { inventoryConnector, mergeWithDetail, INVENTORY_ACTION_TYPES } = await insights.loadInventory({
+        // ReactRedux,
+        // react: React,
+        // reactRouterDom,
+        // pfReactTable,
+        // pfReact: reactCore
+        // });
+        // const { InventoryDetailHead, AppInfo, DetailWrapper } = inventoryConnector(store);
+        //
+        // getRegistry().register({
+        // ...mergeWithDetail(entitiesDetailsReducer(INVENTORY_ACTION_TYPES))
+        // });
+        // setInventoryDetail(() => InventoryDetailHead);
+        // setAppInfo(() => AppInfo);
+        // setInvWrapper(() => DetailWrapper);
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
