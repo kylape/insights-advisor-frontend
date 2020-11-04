@@ -4,23 +4,28 @@ import { IntlProvider } from '@redhat-cloud-services/frontend-components-transla
 import { NotificationsPortal } from '@redhat-cloud-services/frontend-components-notifications';
 import { Provider } from 'react-redux';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { unmountComponentAtNode } from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { getBaseName } from '@redhat-cloud-services/frontend-components-utilities/files/helpers';
 import { init } from './Store';
 import messages from '../locales/data.json';
+import { initializeApp } from '@scalprum/core';
 
-ReactDOM.render(
-    <IntlProvider locale={navigator.language.slice(0, 2)} messages={messages} onError={console.log}>
-        <Provider store={init().getStore()}>
-            <Router basename={getBaseName(window.location.pathname)}>
-                <React.Fragment>
-                    <NotificationsPortal />
-                    <App />
-                </React.Fragment>
-            </Router>
-        </Provider>
-    </IntlProvider>,
-
-    document.getElementById('root')
-);
+initializeApp({
+    id: 'advisor',
+    name: 'advisor',
+    unmount: () => unmountComponentAtNode(document.getElementById('advisor-root')),
+    update: console.log,
+    mount: () => render(
+        <IntlProvider locale={navigator.language.slice(0, 2)} messages={messages} onError={console.log}>
+            <Provider store={init().getStore()}>
+                <Router basename="/insights/advisor/foo">
+                    <React.Fragment>
+                        <NotificationsPortal />
+                        <App />
+                    </React.Fragment>
+                </Router>
+            </Provider>
+        </IntlProvider>,
+        document.getElementById('advisor-root')
+    )
+});
