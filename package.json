@@ -58,7 +58,7 @@
     "@redhat-cloud-services/frontend-components-remediations": "2.3.0",
     "@redhat-cloud-services/frontend-components-translations": "2.2.1",
     "@redhat-cloud-services/frontend-components-utilities": "2.2.6",
-    "@scalprum/core": "0.0.1",
+    "@scalprum/core": "0.0.2",
     "classnames": "2.2.6",
     "react": "17.0.0",
     "react-content-loader": "5.1.3",
