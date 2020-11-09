@@ -1,6 +1,6 @@
 /* global require, module, __dirname */
 const { resolve } = require('path');
-const config = require('@redhat-cloud-services/frontend-components-config');
+const config = require('./config');
 const path = require('path');
 
 const { config: webpackConfig, plugins } = config({ rootFolder: resolve(__dirname, '../'), debug: true });

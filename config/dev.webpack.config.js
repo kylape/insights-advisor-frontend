@@ -1,14 +1,47 @@
 /* global require, module, __dirname */
+const fs = require('fs');
 const { resolve } = require('path');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const config = require('@redhat-cloud-services/frontend-components-config');
-const { config: webpackConfig, plugins } = config({
-    rootFolder: resolve(__dirname, '../'),
-    debug: true
-});
+const config = require('./config');
 
-module.exports = (env) => {
-    env && env.analyze === 'true' && plugins.push(new BundleAnalyzerPlugin());
+const rootFolder = resolve(__dirname, '../');
 
-    return { ...webpackConfig, plugins };
+const { insights } = require(`${rootFolder}/package.json`);
+
+const getAppEntry = (rootFolder, isProd) => {
+    const jsAppEntry = isProd ? `${rootFolder}/src/entry.js` : `${rootFolder}/src/entry-dev.js`;
+    const tsAppEntry = isProd ? `${rootFolder}/src/entry.tsx` : `${rootFolder}/src/entry-dev.tsx`;
+    if (fs.existsSync(jsAppEntry)) {
+        return jsAppEntry;
+    }
+
+    if (fs.existsSync(tsAppEntry)) {
+        return tsAppEntry;
+    }
+
+    return jsAppEntry;
 };
+
+const appDeployment = 'apps';
+
+const publicPath = `/${appDeployment}/${insights.appname}/`;
+const appEntry = getAppEntry(rootFolder, process.env.NODE_ENV === 'production');
+
+const res = config({
+    rootFolder,
+    debug: true,
+    appDeployment,
+    insights,
+    publicPath,
+    appEntry
+});
+const plugins = require('./plugins');
+const c = {
+    ...res,
+    plugins: plugins({ rootFolder, debug: true,
+        appDeployment,
+        insights,
+        publicPath
+    })
+};
+
+module.exports = c;
