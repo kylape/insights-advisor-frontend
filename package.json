@@ -11,6 +11,7 @@
   "scripts": {
     "analyze": "NODE_ENV=production webpack --config config/dev.webpack.config.js --env.prod=true --env.analyze=true --mode production",
     "build": "webpack --config config/prod.webpack.config.js",
+    "build-dev": "NODE_ENV=development webpack --config config/dev.webpack.config.js",
     "lint": "npm-run-all lint:*",
     "lint:js": "eslint config src",
     "lint:js:fix": "eslint config src --fix",
