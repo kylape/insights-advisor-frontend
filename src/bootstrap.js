@@ -25,3 +25,6 @@ ReactDOM.render(
 
     document.getElementById('root')
 );
+
+window.advisorReact = React;
+window.advisorReactDOM = ReactDOM;

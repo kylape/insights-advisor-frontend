@@ -1,6 +1,8 @@
 /* global require, module, __dirname  */
 const webpack = require('webpack');
 const path = require('path');
+const { ModuleFederationPlugin } = require('webpack').container;
+const deps = require('../package.json').dependencies;
 
 module.exports = ({
     appDeployment,
@@ -28,8 +30,20 @@ module.exports = ({
 
     });
 
+    const ModuleFederation = new ModuleFederationPlugin({
+        name: 'advisor',
+        remotes: {
+            insightsChrome: 'insightsChrome@https://ci.foo.redhat.com:1337/apps/chrome/js/chrome-remote.js'
+        },
+        shared: {
+            react: { singleton: true, requiredVersion: deps.react },
+            'react-dom': { singleton: true, requiredVersion: deps['react-dom'] }
+        }
+    });
+
     return [
         EnvPlugin,
+        ModuleFederation,
         HtmlWebpackPlugin,
         HtmlReplaceWebpackPlugin
     ];
